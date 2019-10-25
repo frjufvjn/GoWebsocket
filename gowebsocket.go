@@ -138,7 +138,7 @@ func (socket *Socket) Connect() {
 				logger.Error.Println("read:", err)
 				if strings.ContainsAny(err.Error(), remoteCloseStr) {
 					socket.IsConnected = false
-					socket.OnDisconnected(err.Error(), *socket)
+					socket.OnDisconnected(err, *socket)
 				}
 				return
 			}
