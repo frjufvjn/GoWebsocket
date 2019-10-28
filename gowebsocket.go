@@ -13,7 +13,8 @@ import (
 	logging "github.com/sacOO7/go-logger"
 )
 
-const remoteCloseStr = "colsed by the remote host"
+const remoteCloseStr1 = "colsed by the remote host"
+const remoteCloseStr2 = "connection reset by peer"
 
 type Empty struct {
 }
@@ -136,7 +137,7 @@ func (socket *Socket) Connect() {
 			socket.receiveMu.Unlock()
 			if err != nil {
 				logger.Error.Println("read:", err)
-				if strings.ContainsAny(err.Error(), remoteCloseStr) {
+				if strings.ContainsAny(err.Error(), remoteCloseStr1) || strings.ContainsAny(err.Error(), remoteCloseStr2) {
 					socket.IsConnected = false
 					socket.OnDisconnected(err, *socket)
 				}
